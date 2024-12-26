@@ -30,17 +30,22 @@ async def forward_message(client, message):
         traceback.print_exc()
 
 async def main():
-    while True:
-        try:
-            print("Starting the client...")
-            await app.start()
-            print("Bot is ready...")
-            print(f"Using crypto library: {__crypto_version__}")  # نمایش کتابخانه مورد استفاده
-            await app.idle()
-        except Exception as e:
-            print(f"Connection error: {e}. Retrying in 5 seconds...")
-            traceback.print_exc()
-            await asyncio.sleep(5)
+    try:
+        print("Starting the client...")
+        await app.start()
+        print("Bot is ready...")
+
+        # Instead of idle(), use an event loop to keep the bot running
+        while True:
+            await asyncio.sleep(1)
+    except Exception as e:
+        print(f"Connection error: {e}. Retrying in 5 seconds...")
+        traceback.print_exc()
+        await asyncio.sleep(5)
+    finally:
+        await app.stop()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    # Use the default event loop to start the bot
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())
