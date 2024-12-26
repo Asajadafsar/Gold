@@ -1,0 +1,4 @@
+api_id = '20767541'
+api_hash = 'f4dad8155eb71a32cd47a78a7c6be4e6'
+source_channel = '@chaneltabantest'
+target_channel = '@Getinfo_gold'
